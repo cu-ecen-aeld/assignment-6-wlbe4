@@ -1,0 +1,27 @@
+#!/bin/sh
+
+case "$1" in
+        start)
+                echo "Starting ldd modules"
+                cd /lib/modules/6.1.44/extra/
+                /etc/init.d/scull_load
+                /etc/init.d/module_load faulty
+                modprobe hello.ko
+                ;;
+        stop)
+                echo "Stoping ldd modules"
+                cd /lib/modules/6.1.44/extra/
+                rmmod hello.ko
+                /etc/init.d/module_unload faulty
+                /etc/init.d/scull_unload
+                ;;
+        restart|reload)
+                "$0" stop
+                "$0" start
+                ;;
+        *)
+        echo "Usage: $0 {start|stop|restart}"
+        exit 1
+esac
+
+exit $?
