@@ -16,29 +16,17 @@ S = "${WORKDIR}/git"
 inherit module
 
 EXTRA_OEMAKE += "KERNELDIR=${STAGING_KERNEL_DIR}"
-#EXTRA_OEMAKE += " -C ${STAGING_KERNEL_DIR} M=${S}/scull"
 EXTRA_OEMAKE:append:task-install = " -C ${STAGING_KERNEL_DIR} M=${S}/scull"
-#EXTRA_OEMAKE:append:task-install = " -C ${STAGING_KERNEL_DIR} M=${S}/misc-modules"
 
-#inherit update-rc.d
-#INITSCRIPT_PACKAGES = "${PN}"
-#INITSCRIPT_NAME:${PN} = "S98lddmodules"
-#pkg_postinst_ontarget:${PN} () {
-#    
-#}
+FILES:${PN} += "${sysconfdir}/init.d/*"
+FILES:${PN} += "${sysconfdir}/rcS.d/*"
 
-#INITSCRIPT_PACKAGES = "${PN}"
-## 
-##FILES_${PN} += "/usr/lib/modules/${KERNEL_VERSION}/extra/scull.ko"
-#FILES:${PN} += "${D}${sysconfdir}/init.d/S98lddmodules"
-#
-#do_install () {
-#    install -d ${D}${sysconfdir}/init.d
-#    install -m 0755 ${BASE_WORKDIR}/../../../meta-aesd/recipes-scull/scull/files/S98lddmodules 			${D}${sysconfdir}/init.d
-####	 install -m 0755 ${S}/scull/scull_unload 		${D}${sysconfdir}/init.d
-####    install -m 0755 ${S}/misc-modules/module_load 	${D}${sysconfdir}/init.d
-####	install -m 0755 ${S}/misc-modules/module_unload ${D}${sysconfdir}/init.d
-###   install -d ${D}${libdir}/modules/${KERNEL_VERSION}/extra
-###   install -m 0644 ${S}/scull/scull.ko ${D}${libdir}/modules/${KERNEL_VERSION}/extra
-###    install -m 0644 tmp/work/qemuarm64-poky-linux/scull/1.0+gitAUTOINC+38b0cd43c2-r0/git/misc-modules/faulty.ko ${D}${libdir}/modules/${KERNEL_VERSION}/extra
-#}
+do_install:append () {
+    install -d ${D}${sysconfdir}/init.d
+    install -d ${D}${sysconfdir}/rcS.d
+    install -m 0755 ${WORKDIR}/S98lddmodules        ${D}${sysconfdir}/rcS.d
+	install -m 0755 ${S}/scull/scull_load 		    ${D}${sysconfdir}/init.d
+	install -m 0755 ${S}/scull/scull_unload 		${D}${sysconfdir}/init.d    
+    install -m 0755 ${S}/misc-modules/module_load 	${D}${sysconfdir}/init.d
+	install -m 0755 ${S}/misc-modules/module_unload ${D}${sysconfdir}/init.d    
+}
