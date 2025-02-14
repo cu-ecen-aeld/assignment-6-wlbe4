@@ -1,0 +1,24 @@
+From 45768c275fac5901fed2f00e5742a04e1ab7d8f0 Mon Sep 17 00:00:00 2001
+From: Lior Weintraub <LiorW@pliops.com>
+Date: Tue, 11 Feb 2025 23:59:10 +0200
+Subject: [PATCH] Modify Makefile
+
+---
+ Makefile | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 7b08c49..c0f2d6b 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,8 +1,6 @@
+ 
+-SUBDIRS =  misc-progs misc-modules \
+-           skull scull scullc scullp lddbus sculld scullv shortprint simple tty \
+-	   pci usb\
+-	   sbull snull short
++SUBDIRS =  misc-modules \
++           scull
+ 
+ all: subdirs
+ 
