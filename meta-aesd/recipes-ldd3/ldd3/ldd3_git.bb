@@ -22,7 +22,7 @@ EXTRA_OEMAKE:append:task-install = " -C ${STAGING_KERNEL_DIR} M=${S}/scull"
 FILES:${PN} += "${sysconfdir}/init.d/*"
 FILES:${PN} += "${sysconfdir}/rcS.d/*"
 
-do_install:append () {
+do_install () {
     install -d ${D}${sysconfdir}/init.d
     install -d ${D}${sysconfdir}/rcS.d
     install -m 0755 ${WORKDIR}/S98lddmodules        ${D}${sysconfdir}/rcS.d
