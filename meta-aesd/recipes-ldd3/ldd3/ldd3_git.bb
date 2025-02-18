@@ -18,6 +18,8 @@ inherit module
 EXTRA_OEMAKE += "KERNELDIR=${STAGING_KERNEL_DIR}"
 EXTRA_OEMAKE:append:task-install = " -C ${STAGING_KERNEL_DIR} M=${S}/misc-modules"
 EXTRA_OEMAKE:append:task-install = " -C ${STAGING_KERNEL_DIR} M=${S}/scull"
+#MODULES_MODULE_SYMVERS_LOCATION:append:task-install = " ${S}/misc-modules"
+#MODULES_MODULE_SYMVERS_LOCATION:append:task-install = " ${S}/scull"
 
 FILES:${PN} += "${sysconfdir}/init.d/*"
 FILES:${PN} += "${sysconfdir}/rcS.d/*"
@@ -30,4 +32,5 @@ do_install () {
 	install -m 0755 ${S}/scull/scull_unload 		${D}${sysconfdir}/init.d
     install -m 0755 ${S}/misc-modules/module_load 	${D}${sysconfdir}/init.d
 	install -m 0755 ${S}/misc-modules/module_unload ${D}${sysconfdir}/init.d
+    module_do_install
 }
